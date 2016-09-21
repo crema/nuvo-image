@@ -13,6 +13,8 @@ set (CMAKE_CXX_FLAGS '-o4')
 
 include(ExternalProject)
 
+# set(CMAKE_BUILD_TYPE Debug)
+
 set(EXTERNAL_DIR ${CMAKE_SOURCE_DIR}/external)
 set(EXTERNAL_SRC_DIR ${EXTERNAL_DIR}/src)
 set(EXTERNAL_LIB_DIR ${EXTERNAL_DIR}/lib)
