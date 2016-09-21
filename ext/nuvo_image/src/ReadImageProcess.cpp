@@ -26,8 +26,6 @@ const ImageProcessInput ReadImageProcess::Process(const ImageProcessInput &input
     }
 
     if(!image.empty()) {
-        auto orientation = 0;
-
         result["width"] = picojson::value((double)image.cols);
         result["height"] = picojson::value((double)image.rows);
 
@@ -36,6 +34,7 @@ const ImageProcessInput ReadImageProcess::Process(const ImageProcessInput &input
         if(TryReadExif(buffer, exif)) {
             if(autoOrient) {
                 cv::Mat oriented;
+                auto orientation = exif.Orientation;
                 if(TryRotateOrientation(image, oriented, orientation)){
                     image = oriented;
                 }
