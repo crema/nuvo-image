@@ -115,14 +115,25 @@ ExternalProject_Add(
         BUILD_IN_SOURCE 1
 )
 
-ExternalProject_Add(
-        opencv
-        URL ${EXTERNAL_DIR}/3.1.0.zip
-        SOURCE_DIR ${EXTERNAL_SRC_DIR}/opencv3.1.0
-        PATCH_COMMAND cat ${EXTERNAL_DIR}/opencv_patch.cmake >> ${EXTERNAL_SRC_DIR}/opencv3.1.0/cmake/OpenCVFindLibsVideo.cmake
-        CMAKE_ARGS -C${EXTERNAL_DIR}/opencv_config.cmake
-        BUILD_IN_SOURCE 1
-)
+if(APPLE)
+        ExternalProject_Add(
+                opencv
+                URL ${EXTERNAL_DIR}/opencv-master.zip
+                SOURCE_DIR ${EXTERNAL_SRC_DIR}/opencv-master
+                PATCH_COMMAND cat ${EXTERNAL_DIR}/opencv_patch.cmake >> ${EXTERNAL_SRC_DIR}/opencv-master/cmake/OpenCVFindLibsVideo.cmake
+                CMAKE_ARGS -C${EXTERNAL_DIR}/opencv_config.cmake
+                BUILD_IN_SOURCE 1
+        )
+else()
+        ExternalProject_Add(
+                opencv
+                URL ${EXTERNAL_DIR}/3.1.0.zip
+                SOURCE_DIR ${EXTERNAL_SRC_DIR}/opencv3.1.0
+                PATCH_COMMAND cat ${EXTERNAL_DIR}/opencv_patch.cmake >> ${EXTERNAL_SRC_DIR}/opencv3.1.0/cmake/OpenCVFindLibsVideo.cmake
+                CMAKE_ARGS -C${EXTERNAL_DIR}/opencv_config.cmake
+                BUILD_IN_SOURCE 1
+        )
+endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build/bin)
 
