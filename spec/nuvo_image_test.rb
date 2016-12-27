@@ -16,22 +16,27 @@ describe NuvoImage::Process do
 
   describe '#read' do
     it 'should work' do
-      @sushi = subject.read(File.dirname(__FILE__) + '/images/sushi.jpg')
-      @sushi.width.must_equal 960
-      @sushi.height.must_equal 960
-      @sushi.size.must_equal 116_306
-      @sushi.frames.must_be_nil
+      sushi = subject.read(File.dirname(__FILE__) + '/images/sushi.jpg')
+      sushi.width.must_equal 960
+      sushi.height.must_equal 960
+      sushi.size.must_equal 116_306
+      sushi.frames.must_be_nil
 
-      @todd = subject.read(File.dirname(__FILE__) + '/images/todd.gif')
-      @todd.frames.must_equal 21
-      @todd.width.must_equal 320
-      @todd.height.must_equal 240
-      @todd.size.must_equal 472_973
+      todd = subject.read(File.dirname(__FILE__) + '/images/todd.gif')
+      todd.frames.must_equal 21
+      todd.width.must_equal 320
+      todd.height.must_equal 240
+      todd.size.must_equal 472_973
 
-      @ia = subject.read(File.dirname(__FILE__) + '/images/IA.png')
-      @ia.width.must_equal 750
-      @ia.height.must_equal 1091
-      @ia.size.must_equal 562_086
+      ia = subject.read(File.dirname(__FILE__) + '/images/IA.png')
+      ia.width.must_equal 750
+      ia.height.must_equal 1091
+      ia.size.must_equal 562_086
+
+      bag = subject.read(File.dirname(__FILE__) + '/images/bag-exif.jpg')
+      bag.width.must_equal 552
+      bag.height.must_equal 414
+      bag.size.must_equal 62_735
     end
 
     after do
