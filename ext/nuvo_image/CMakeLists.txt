@@ -95,7 +95,7 @@ set(GIFLIB_CONFIGURE
 )
 ExternalProject_Add(
         giflib
-        URL ${EXTERNAL_DIR}/giflib-5.1.4.tar.bz2
+        GIT_REPOSITORY https://github.com/crema/giflib
         SOURCE_DIR ${EXTERNAL_SRC_DIR}/giflib-5.1.4
         CONFIGURE_COMMAND ${EXTERNAL_SRC_DIR}/giflib-5.1.4/configure ${GIFLIB_CONFIGURE}
         BUILD_IN_SOURCE 1

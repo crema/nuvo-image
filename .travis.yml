@@ -3,7 +3,7 @@ dist: trusty
 group: stable
 language: ruby
 rvm:
-  - 2.3.1
+  - 2.5.1
 cache: bundler
 before_script:
   - sudo ln /dev/null /dev/raw1394
