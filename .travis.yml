@@ -13,6 +13,7 @@ script:
 addons:
   apt:
     packages:
+      - automake
       - build-essential
       - cmake
       - cmake-data

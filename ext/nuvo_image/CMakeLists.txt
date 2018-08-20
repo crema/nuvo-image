@@ -82,8 +82,8 @@ endif ()
 
 ExternalProject_Add(
         opencv
-        URL ${EXTERNAL_DIR}/opencv-3.2.0.zip
-        SOURCE_DIR ${EXTERNAL_SRC_DIR}/opencv-3.2.0
+        URL ${EXTERNAL_DIR}/opencv-3.4.2.zip
+        SOURCE_DIR ${EXTERNAL_SRC_DIR}/opencv-3.4.2
         CMAKE_ARGS -C${EXTERNAL_DIR}/opencv_config.cmake
         BUILD_IN_SOURCE 1
 )
@@ -95,9 +95,9 @@ set(GIFLIB_CONFIGURE
 )
 ExternalProject_Add(
         giflib
-        GIT_REPOSITORY https://github.com/crema/giflib
+        URL ${EXTERNAL_DIR}/giflib-5.1.4-r1.tar.bz2
         SOURCE_DIR ${EXTERNAL_SRC_DIR}/giflib-5.1.4
-        CONFIGURE_COMMAND ${EXTERNAL_SRC_DIR}/giflib-5.1.4/configure ${GIFLIB_CONFIGURE}
+        CONFIGURE_COMMAND cd ${EXTERNAL_SRC_DIR}/giflib-5.1.4 && aclocal && automake && ./configure ${GIFLIB_CONFIGURE}
         BUILD_IN_SOURCE 1
 )
 
@@ -106,7 +106,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build/bin)
 include_directories(include
         ${OpenCV_INCLUDE_DIR}
         ${EXTERNAL_LIB_DIR}/giflib-5.1.4/include
-        ${EXTERNAL_LIB_DIR}/opencv-3.2.0/include)
+        ${EXTERNAL_LIB_DIR}/opencv-3.4.2/include)
 
 file(GLOB INCLUDE_FILES include/*.h)
 file(GLOB SOURCE_FILES src/*.cpp)
@@ -121,10 +121,10 @@ add_dependencies(opencv ffmpeg)
 add_dependencies(nuvo_image giflib opencv)
 
 set(GIF_LIBRARIES ${EXTERNAL_LIB_DIR}/giflib-5.1.4/lib/${CMAKE_STATIC_LIBRARY_PREFIX}gif${CMAKE_STATIC_LIBRARY_SUFFIX})
-set(OPENCV_CORE_LIBRARIES ${EXTERNAL_LIB_DIR}/opencv-3.2.0/lib/${CMAKE_SHARED_LIBRARY_PREFIX}opencv_core${CMAKE_SHARED_LIBRARY_SUFFIX})
-set(OPENCV_IMGPROC_LIBRARIES ${EXTERNAL_LIB_DIR}/opencv-3.2.0/lib/${CMAKE_SHARED_LIBRARY_PREFIX}opencv_imgproc${CMAKE_SHARED_LIBRARY_SUFFIX})
-set(OPENCV_IMGCODECS_LIBRARIES ${EXTERNAL_LIB_DIR}/opencv-3.2.0/lib/${CMAKE_SHARED_LIBRARY_PREFIX}opencv_imgcodecs${CMAKE_SHARED_LIBRARY_SUFFIX})
-set(OPENCV_VIDEOIO_LIBRARIES ${EXTERNAL_LIB_DIR}/opencv-3.2.0/lib/${CMAKE_SHARED_LIBRARY_PREFIX}opencv_videoio${CMAKE_SHARED_LIBRARY_SUFFIX})
+set(OPENCV_CORE_LIBRARIES ${EXTERNAL_LIB_DIR}/opencv-3.4.2/lib/${CMAKE_SHARED_LIBRARY_PREFIX}opencv_core${CMAKE_SHARED_LIBRARY_SUFFIX})
+set(OPENCV_IMGPROC_LIBRARIES ${EXTERNAL_LIB_DIR}/opencv-3.4.2/lib/${CMAKE_SHARED_LIBRARY_PREFIX}opencv_imgproc${CMAKE_SHARED_LIBRARY_SUFFIX})
+set(OPENCV_IMGCODECS_LIBRARIES ${EXTERNAL_LIB_DIR}/opencv-3.4.2/lib/${CMAKE_SHARED_LIBRARY_PREFIX}opencv_imgcodecs${CMAKE_SHARED_LIBRARY_SUFFIX})
+set(OPENCV_VIDEOIO_LIBRARIES ${EXTERNAL_LIB_DIR}/opencv-3.4.2/lib/${CMAKE_SHARED_LIBRARY_PREFIX}opencv_videoio${CMAKE_SHARED_LIBRARY_SUFFIX})
 
 target_link_libraries(nuvo_image
         ${GIF_LIBRARIES}
