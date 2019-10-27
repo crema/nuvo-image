@@ -16,9 +16,10 @@ const ImageProcessInput VideoImageProcess::Process(const ImageProcessInput& inpu
 
   auto fps = 100.0 / minDelay;
 
+  // https://forum.videohelp.com/threads/360190-Is-avc1-the-same-for-H-264-MPEG-4-AVC
   if (format == VideoFormat::Mp4) {
     if (!writer.open(to,
-                     0x21,  // cv::VideoWriter::fourcc('X','2','6','4')
+                     cv::VideoWriter::fourcc('a','v','c','1'),
                      fps, cv::Size(gif.GetWidth(), gif.GetHeight()))) {
       throw std::runtime_error("cant open x264");
     }

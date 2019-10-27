@@ -1,12 +1,9 @@
-sudo: required
-dist: trusty
+dist: bionic
 group: stable
 language: ruby
 rvm:
-  - 2.5.1
+  - 2.7.1
 cache: bundler
-before_script:
-  - sudo ln /dev/null /dev/raw1394
 script:
   - ./build-ext
   - bundle exec rake test
@@ -16,12 +13,13 @@ addons:
       - automake
       - build-essential
       - cmake
-      - cmake-data
-      - g++-6
+      - g++
       - libwebp-dev
       - libx264-dev
       - nasm
       - yasm
-    sources:
-      - george-edison55-precise-backports
-      - ubuntu-toolchain-r-test
+branches:
+  only:
+    - master
+    - /^feature\/.*$/
+    - /^hotfix\/.*$/

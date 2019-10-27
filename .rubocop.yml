@@ -1,11 +1,35 @@
 AllCops:
   Include:
-    - '**/*.cap'
-    - '**/*.rake'
+    - '**/*.rb'
+    - '**/Gemfile'
+    - '**/Rakefile'
   Exclude:
     - '**/bin/*'
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.7.1
   DisplayCopNames: true
+  NewCops: disable
+
+Layout/AssignmentIndentation:
+  Enabled: false
+
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 160
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+
+Layout/SpaceInsideBlockBraces:
+  EnforcedStyle: no_space
+  SpaceBeforeBlockParameters: false
+
+Layout/SpaceInsideHashLiteralBraces:
+  EnforcedStyle: no_space
 
 Lint/UnusedMethodArgument:
   Enabled: true
@@ -14,14 +38,14 @@ Lint/UnusedMethodArgument:
 Metrics/AbcSize:
   Enabled: false
 
+Metrics/BlockLength:
+  Enabled: false
+
 Metrics/BlockNesting:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
   Enabled: false
-
-Metrics/LineLength:
-  Max: 300 # Default: 80
 
 Metrics/MethodLength:
   Max: 100 # Default: 10
@@ -56,9 +80,6 @@ Style/ConditionalAssignment:
 Style/Documentation:
   Enabled: false
 
-Style/DotPosition:
-  EnforcedStyle: trailing
-
 Style/FrozenStringLiteralComment:
   Enabled: false
 
@@ -71,27 +92,11 @@ Style/GuardClause:
 Style/IfInsideElse:
   Enabled: false
 
-Style/IndentArray:
-  Enabled: false
-
-Style/IndentAssignment:
-  Enabled: false
-
 Style/NumericPredicate:
   Enabled: false
 
 Style/SignalException:
   EnforcedStyle: only_raise
-
-Style/SpaceAroundEqualsInParameterDefault:
-  EnforcedStyle: no_space
-
-Style/SpaceInsideBlockBraces:
-  EnforcedStyle: no_space
-  SpaceBeforeBlockParameters: false
-
-Style/SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
 
 Style/TrivialAccessors:
   Enabled: true
