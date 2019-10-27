@@ -15,7 +15,7 @@ module NuvoImage
 
     def initialize
       nuvo_image_process = File.join(File.dirname(__FILE__), '/../../ext/nuvo_image/bin/nuvo_image')
-      library_path = File.join(File.dirname(__FILE__), '../../ext/nuvo_image/external/lib/opencv-3.4.2/lib')
+      library_path = File.join(File.dirname(__FILE__), '../../ext/nuvo_image/external/lib/opencv-3.4.7/lib')
 
       env = if RUBY_PLATFORM.include?('darwin')
               {'DYLD_FALLBACK_LIBRARY_PATH' => library_path}
@@ -30,6 +30,7 @@ module NuvoImage
       line = stdout.readline
       result = JSON.parse(line, symbolize_names: true)
       raise result[:error] unless result[:error].nil?
+
       result
     end
 
