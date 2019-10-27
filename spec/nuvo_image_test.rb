@@ -28,13 +28,13 @@ describe NuvoImage::Process do
       ]
       images.each do |filename, width, height, size, frames|
         i = subject.read image_path(filename)
-        i.width.must_equal width
-        i.height.must_equal height
-        i.size.must_equal size
+        value(i.width).must_equal width
+        value(i.height).must_equal height
+        value(i.size).must_equal size
         if frames.nil?
-          i.frames.must_be_nil
+          value(i.frames).must_be_nil
         else
-          i.frames.must_equal frames
+          value(i.frames).must_equal frames
         end
       end
     end
@@ -65,9 +65,9 @@ describe NuvoImage::Process do
         SouthWest: [0, 910, 100, 50]
       }.each do |gravity, result|
         cropped = subject.crop(@sushi, 100, 50, gravity: gravity)
-        cropped.gravity.must_equal gravity
-        [cropped.left, cropped.top, cropped.width, cropped.height].must_equal result
-        cropped.frames.must_be_nil
+        value(cropped.gravity).must_equal gravity
+        value([cropped.left, cropped.top, cropped.width, cropped.height]).must_equal result
+        value(cropped.frames).must_be_nil
       end
 
       {
@@ -82,9 +82,9 @@ describe NuvoImage::Process do
         SouthWest: [0, 190, 100, 50]
       }.each do |gravity, result|
         cropped = subject.crop(@todd, 100, 50, gravity: gravity)
-        cropped.gravity.must_equal gravity
-        [cropped.left, cropped.top, cropped.width, cropped.height].must_equal result
-        cropped.frames.must_equal 21
+        value(cropped.gravity).must_equal gravity
+        value([cropped.left, cropped.top, cropped.width, cropped.height]).must_equal result
+        value(cropped.frames).must_equal 21
       end
 
       {
@@ -99,9 +99,9 @@ describe NuvoImage::Process do
         SouthWest: [0, 320, 100, 50]
       }.each do |gravity, result|
         cropped = subject.crop(@black_pink, 100, 50, gravity: gravity)
-        cropped.gravity.must_equal gravity
-        [cropped.left, cropped.top, cropped.width, cropped.height].must_equal result
-        cropped.frames.must_equal 2
+        value(cropped.gravity).must_equal gravity
+        value([cropped.left, cropped.top, cropped.width, cropped.height]).must_equal result
+        value(cropped.frames).must_equal 2
       end
 
       {
@@ -116,9 +116,9 @@ describe NuvoImage::Process do
         SouthWest: [0, 320, 100, 50]
       }.each do |gravity, result|
         cropped = subject.crop(@rainbow_socks, 100, 50, gravity: gravity)
-        cropped.gravity.must_equal gravity
-        [cropped.left, cropped.top, cropped.width, cropped.height].must_equal result
-        cropped.frames.must_equal 10
+        value(cropped.gravity).must_equal gravity
+        value([cropped.left, cropped.top, cropped.width, cropped.height]).must_equal result
+        value(cropped.frames).must_equal 10
       end
     end
 
@@ -136,7 +136,7 @@ describe NuvoImage::Process do
     end
 
     it 'should work' do
-      interpolations = [:nearest, :linear, :cubic, :area, :lanczos]
+      interpolations = %i[nearest linear cubic area lanczos]
       images = [
         [@sushi, nil],
         [@todd, 21],
@@ -146,13 +146,13 @@ describe NuvoImage::Process do
       images.each do |image, frames|
         interpolations.each do |interpolation|
           resized = subject.resize(image, 100, 50, interpolation: interpolation)
-          resized.width.must_equal 100
-          resized.height.must_equal 50
-          resized.interpolation.must_equal interpolation
+          value(resized.width).must_equal 100
+          value(resized.height).must_equal 50
+          value(resized.interpolation).must_equal interpolation
           if frames
-            resized.frames.must_equal frames
+            value(resized.frames).must_equal frames
           else
-            resized.frames.must_be_nil
+            value(resized.frames).must_be_nil
           end
         end
       end
@@ -173,26 +173,26 @@ describe NuvoImage::Process do
     it 'should work' do
       (0..@todd.frames - 1).each do |frame|
         framed = subject.frame(@todd, frame)
-        framed.frame.must_equal frame
-        framed.width.must_equal 320
-        framed.height.must_equal 240
-        framed.frames.must_be_nil
+        value(framed.frame).must_equal frame
+        value(framed.width).must_equal 320
+        value(framed.height).must_equal 240
+        value(framed.frames).must_be_nil
       end
 
       (0..@black_pink.frames - 1).each do |frame|
         framed = subject.frame(@black_pink, frame)
-        framed.frame.must_equal frame
-        framed.width.must_equal 260
-        framed.height.must_equal 370
-        framed.frames.must_be_nil
+        value(framed.frame).must_equal frame
+        value(framed.width).must_equal 260
+        value(framed.height).must_equal 370
+        value(framed.frames).must_be_nil
       end
 
       (0..@rainbow_socks.frames - 1).each do |frame|
         framed = subject.frame(@rainbow_socks, frame)
-        framed.frame.must_equal frame
-        framed.width.must_equal 260
-        framed.height.must_equal 370
-        framed.frames.must_be_nil
+        value(framed.frame).must_equal frame
+        value(framed.width).must_equal 260
+        value(framed.height).must_equal 370
+        value(framed.frames).must_be_nil
       end
     end
 
@@ -216,7 +216,7 @@ describe NuvoImage::Process do
         black_pink: @black_pink,
         rainbow_socks: @rainbow_socks
       }.each do |name, image|
-        [:jpeg, :webp].each do |format|
+        %i[jpeg webp].each do |format|
           lossy_size = 0
           lossy_quality = 0
           {
@@ -232,11 +232,11 @@ describe NuvoImage::Process do
 
             lossy_by_fixed_quality = subject.lossy(image, image_path("test/#{name}_#{lossy_by_quality.quality}.#{format}"), format: format, quality: quality)
 
-            lossy_by_quality.quality.must_equal lossy_by_ssim.quality
-            lossy_by_quality.size.must_equal lossy_by_ssim.size
+            value(lossy_by_quality.quality).must_equal lossy_by_ssim.quality
+            value(lossy_by_quality.size).must_equal lossy_by_ssim.size
 
-            lossy_by_quality.quality.must_equal lossy_by_fixed_quality.quality
-            lossy_by_quality.size.must_equal lossy_by_fixed_quality.size
+            value(lossy_by_quality.quality).must_equal lossy_by_fixed_quality.quality
+            value(lossy_by_quality.size).must_equal lossy_by_fixed_quality.size
 
             lossy_size = lossy_by_quality.size
             lossy_quality = lossy_by_quality.quality
@@ -265,7 +265,7 @@ describe NuvoImage::Process do
         black_pink: @black_pink,
         rainbow_socks: @rainbow_socks
       }.each do |name, image|
-        [:png, :webp].each do |format|
+        %i[png webp].each do |format|
           subject.lossless(image, image_path("test/#{name}.#{format}"), format: format)
         end
       end
@@ -279,7 +279,7 @@ describe NuvoImage::Process do
   describe '#compare' do
     before do
       @miku = subject.read image_path('miku.gif')
-      @mikus = [:low, :medium, :high, :very_high].map do |quality|
+      @mikus = %i[low medium high very_high].map do |quality|
         output_path = image_path("test/miku_#{quality}.jpg")
         subject.lossy(@miku, output_path, format: :jpeg, quality: quality)
         [quality, subject.read(output_path)]
@@ -309,7 +309,7 @@ describe NuvoImage::Process do
         rainbow_socks: @rainbow_socks
       }.each do |name, image|
         mp4 = subject.video(image, image_path("test/#{name}.mp4"), format: :mp4)
-        mp4.size.must_be :>, 0
+        value(mp4.size).must_be :>, 0
       end
     end
 
@@ -320,7 +320,7 @@ describe NuvoImage::Process do
 
   describe '#clear' do
     it 'return true' do
-      subject.clear.must_equal true
+      value(subject.clear).must_equal true
     end
 
     after do
@@ -330,7 +330,7 @@ describe NuvoImage::Process do
 
   describe '#close' do
     it 'return 0' do
-      subject.close.must_equal 0
+      value(subject.close).must_equal 0
     end
   end
 end
