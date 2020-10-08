@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/crema/nuvo-image.svg?style=svg)](https://circleci.com/gh/crema/nuvo-image)
+[![Build Status](https://travis-ci.com/crema/nuvo-image.svg?branch=master)](https://travis-ci.com/github/crema/nuvo-image)
 
 # NuvoImage
 
@@ -9,10 +9,7 @@
 ### Ubuntu
 
 ```bash
-sudo add-apt-repository ppa:ubuntu-toolchain-r/test
-sudo apt-get update
-
-sudo apt-get install automake cmake g++-6 nasm yasm libwebp-dev libx264-dev
+sudo apt-get install automake build-essential cmake g++ nasm yasm libwebp-dev libx264-dev
 ```
 
 ### macOS
